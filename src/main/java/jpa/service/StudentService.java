@@ -1,5 +1,6 @@
 package jpa.service;
 
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
 import jpa.dao.StudentDAO;
 import jpa.entitymodels.Student;
@@ -8,6 +9,7 @@ import jpa.util.ConnectionFactory;
 import org.hibernate.Session;
 import org.hibernate.exception.ConstraintViolationException;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,9 +44,16 @@ public class StudentService implements StudentDAO {
 
     @Override
     public Student getStudentByEmail(String email) {
-        TypedQuery<Student> typedQuery = connectionFactory.getSession().createQuery("from Student where email=:email", Student.class);
-        typedQuery.setParameter("email", email);
-        return typedQuery.getSingleResult();
+        try {
+            TypedQuery<Student> typedQuery = connectionFactory.getSession().createQuery("from Student where email=:email", Student.class);
+            typedQuery.setParameter("email", email);
+            return typedQuery.getSingleResult();
+        } catch(NoResultException e) {
+            System.out.println("Student not found");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
 
     @Override

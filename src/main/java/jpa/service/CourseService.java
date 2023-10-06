@@ -1,5 +1,6 @@
 package jpa.service;
 
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
 import jpa.dao.CourseDAO;
 import jpa.entitymodels.Course;
@@ -32,9 +33,16 @@ public class CourseService implements CourseDAO {
 
     @Override
     public Course getCourseByID(int courseID) {
-        TypedQuery<Course> typedQuery = connectionFactory.getSession().createQuery("from Course where courseID=:courseID", Course.class);
-        typedQuery.setParameter("courseID", courseID);
-        return typedQuery.getSingleResult();
+        try {
+            TypedQuery<Course> typedQuery = connectionFactory.getSession().createQuery("from Course where courseID=:courseID", Course.class);
+            typedQuery.setParameter("courseID", courseID);
+            return typedQuery.getSingleResult();
+        } catch(NoResultException e) {
+            System.out.println("Course not found!");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
 
     @Override

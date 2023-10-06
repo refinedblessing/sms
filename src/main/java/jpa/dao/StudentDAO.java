@@ -7,11 +7,11 @@ import java.util.List;
 
 public interface StudentDAO {
     Student saveStudent(Student student);
-    public List<Student> getAllStudents();
-    public Student getStudentByEmail(String email);
-    public boolean validateStudent(String email, String password);
-    public void registerStudentToCourse(String email, int courseId);
+    List<Student> getAllStudents();
+    Student getStudentByEmail(String email);
+    boolean validateStudent(String email, String password);
+    void registerStudentToCourse(String email, int courseId);
     void registerStudentToCourse(Student student, Course course);
 
-    public List<Course> getStudentCourses(String email);
+    List<Course> getStudentCourses(String email);
 }

@@ -15,16 +15,14 @@ public class SMSRunner {
 
     static ConnectionFactory connectionFactory = ConnectionFactory.GET_SESSION.getInstance();
 
-    private Scanner input;
-    private StringBuilder sb;
+    private final Scanner input;
 
-    private CourseService courseService;
-    private StudentService studentService;
+    private final CourseService courseService;
+    private final StudentService studentService;
     private Student currentStudent;
 
     public SMSRunner() {
         input = new Scanner(System.in);
-        sb = new StringBuilder();
         courseService = new CourseService();
         studentService = new StudentService();
     }

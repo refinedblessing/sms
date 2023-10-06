@@ -7,9 +7,9 @@ import org.hibernate.cfg.Configuration;
 
 public enum ConnectionFactory {
     GET_SESSION();
-    private Session session;
-    private SessionFactory sessionFactory;
-    private Transaction transaction;
+    Session session;
+    SessionFactory sessionFactory;
+    Transaction transaction;
 
     private ConnectionFactory() {
         Configuration configuration = new Configuration();

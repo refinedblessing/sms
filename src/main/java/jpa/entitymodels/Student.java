@@ -59,15 +59,15 @@ public class Student {
         return courses;
     }
 
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
+    }
+
     @Override
     public String toString() {
         return "Student{" +
                 "email='" + email + '\'' +
                 ", name='" + name + '\'' +
                 '}';
-    }
-
-    public void setCourses(List<Course> courses) {
-        this.courses = courses;
     }
 }
