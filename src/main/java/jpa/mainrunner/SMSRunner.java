@@ -56,11 +56,15 @@ public class SMSRunner {
     }
 
     private int menu() {
-        out.println("Welcome to Student Management Platform");
-        out.print("\n1. Student Login\n2. Student Registration\n3. View All Courses\n4. View All Students\n5. Quit Application\nPlease Enter A Selection: ");
-        int selection = input.nextInt();
-        input.nextLine();
-        return selection;
+        try {
+            out.println("Welcome to Student Management Platform");
+            out.print("\n1. Student Login\n2. Student Registration\n3. View All Courses\n4. View All Students\n5. Quit Application\nPlease Enter A Selection: ");
+            int selection = input.nextInt();
+            input.nextLine();
+            return selection;
+        } catch (Exception e) {
+            return 0;
+        }
     }
 
     private void studentRegistration() {
@@ -82,9 +86,9 @@ public class SMSRunner {
 
     private void studentLogin() {
         out.print("Enter your email address: ");
-        String email = input.next();
+        String email = input.nextLine();
         out.print("Enter your password: ");
-        String password = input.next();
+        String password = input.nextLine();
 
         currentStudent = studentService.getStudentByEmail(email);
         if (currentStudent != null) {
@@ -106,7 +110,14 @@ public class SMSRunner {
     private void registerMenu() {
         out.println("\n1. Register for a Class\n2. Logout\nPlease Enter Selection: ");
 
-        switch (input.nextInt()) {
+        int selection = 0;
+        try {
+            selection = input.nextInt();
+        } catch (Exception e) {
+            out.println("Input error occurred");
+        }
+
+        switch (selection) {
             case 1:
                 List<Course> allCourses = courseService.getAllCourses();
                 List<Course> studentCourses = currentStudent.getCourses();
@@ -114,16 +125,20 @@ public class SMSRunner {
                 courseService.printCourseList(allCourses);
 
                 out.print("Enter Course ID: ");
-                int courseID = input.nextInt();
-                Course newCourse = courseService.getCourseByID(courseID);
+                try {
+                    int courseID = input.nextInt();
+                    Course newCourse = courseService.getCourseByID(courseID);
 
-                if (newCourse != null) {
-                    studentService.registerStudentToCourse(currentStudent, newCourse);
+                    if (newCourse != null) {
+                        studentService.registerStudentToCourse(currentStudent, newCourse);
 
-                    out.println("My Courses:");
-                    courseService.printCourseList(currentStudent.getCourses());
-                } else {
-                    out.println("Course not found!");
+                        out.println("My Courses:");
+                        courseService.printCourseList(currentStudent.getCourses());
+                    } else {
+                        out.println("Course not found!");
+                    }
+                } catch (Exception e) {
+                    out.println("Input error occurred");
                 }
                 break;
             case 2:
