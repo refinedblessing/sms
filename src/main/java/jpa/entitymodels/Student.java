@@ -2,7 +2,8 @@ package jpa.entitymodels;
 
 import jakarta.persistence.*;
 
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "Student")
@@ -19,7 +20,7 @@ public class Student {
     private String password;
 
     @ManyToMany(targetEntity = Course.class, fetch = FetchType.LAZY)
-    private Set<Course> courses;
+    private List<Course> courses = new ArrayList<>();
 
     public Student() {
     }
@@ -46,7 +47,7 @@ public class Student {
         this.name = name;
     }
 
-    private String getPassword() {
+    public String getPassword() {
         return password;
     }
 
@@ -54,7 +55,7 @@ public class Student {
         this.password = password;
     }
 
-    public Set<Course> getCourses() {
+    public List<Course> getCourses() {
         return courses;
     }
 
@@ -64,5 +65,9 @@ public class Student {
                 "email='" + email + '\'' +
                 ", name='" + name + '\'' +
                 '}';
+    }
+
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
     }
 }

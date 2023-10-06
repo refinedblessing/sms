@@ -8,7 +8,7 @@ public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
-    private int courseId;
+    private int courseID;
     @Column(name="name", nullable = false, length = 50)
 
     private String courseName;
@@ -24,12 +24,12 @@ public class Course {
         this.courseInstructor = instructor;
     }
 
-    public int getCourseId() {
-        return courseId;
+    public int getCourseID() {
+        return courseID;
     }
 
-    public void setCourseId(int courseId) {
-        this.courseId = courseId;
+    public void setCourseID(int courseID) {
+        this.courseID = courseID;
     }
 
     public String getCourseName() {
@@ -51,7 +51,7 @@ public class Course {
     @Override
     public String toString() {
         return "Course{" +
-                "id=" + courseId +
+                "courseID=" + courseID +
                 ", name='" + courseName + '\'' +
                 ", instructor='" + courseInstructor + '\'' +
                 '}';
